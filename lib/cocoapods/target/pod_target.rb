@@ -191,6 +191,15 @@ module Pod
 
     private
 
+    # @return [TargetDefinition] forward duck-type compatibility for methods,
+    #         implemented in base class, which are only valid for scoped
+    #         targets.
+    #
+    def target_definition
+      raise "#target_definition called on non-scoped target: #{self}" unless scoped?
+      target_definitions.first
+    end
+
     # @param  [TargetDefinition] target_definition
     #         The target definition to check.
     #
