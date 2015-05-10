@@ -54,7 +54,7 @@ module Pod
       def analyze(allow_fetches = true)
         validate_lockfile_version!
         @result = AnalysisResult.new
-        compute_target_platforms
+        inspect_targets_to_integrate
         @result.podfile_state = generate_podfile_state
         @locked_dependencies  = generate_version_locking_dependencies
 
@@ -738,7 +738,7 @@ module Pod
       #
       # @return [void]
       #
-      def compute_target_platforms
+      def inspect_targets_to_integrate
         UI.section 'Inspecting targets to integrate' do
           podfile.target_definition_list.each do |target_definition|
             if config.integrate_targets?
